@@ -933,8 +933,8 @@ require('lazy').setup({
     -- tag = "v2.15", -- uncomment to pin to a specific release
     init = function()
       -- VimTeX configuration goes here, e.g.
-      vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
-      -- vim.g.vimtex_view_method = 'zathura'
+      -- vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
+      vim.g.vimtex_view_method = 'zathura'
     end,
   },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
@@ -963,15 +963,6 @@ require('lazy').setup({
   -- Or use telescope!
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
-  {
-    'lervag/vimtex',
-    lazy = false, -- we don't want to lazy load VimTeX
-    -- tag = "v2.15", -- uncomment to pin to a specific release
-    init = function()
-      -- VimTeX configuration goes here, e.g.
-      vim.g.vimtex_view_method = 'skim'
-    end,
-  },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
