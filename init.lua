@@ -934,7 +934,7 @@ require('lazy').setup({
     init = function()
       -- VimTeX configuration goes here, e.g.
       -- vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
-      vim.g.vimtex_view_method = 'zathura'
+      vim.g.vimtex_view_method = 'zathura_simple'
     end,
   },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
