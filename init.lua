@@ -334,6 +334,7 @@ require('lazy').setup({
 
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
+    'nvim-telescope/telescope-bibtex.nvim',
     event = 'VimEnter',
     branch = '0.1.x',
     dependencies = {
@@ -384,7 +385,9 @@ require('lazy').setup({
         --
         -- defaults = {
         --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+        --     i = {
+        --       ['<c-enter>'] = 'to_fuzzy_refine',
+        --     },
         --   },
         -- },
         -- pickers = {}
@@ -392,12 +395,17 @@ require('lazy').setup({
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          ['bibtex'] = {
+            ['context'] = true,
+            ['context_fallback'] = true,
+          },
         },
       }
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'bibtex')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -833,7 +841,7 @@ require('lazy').setup({
           { name = 'buffer' },
         },
       }
-    end
+    end,
   },
 
   { -- You can easily change to a different colorscheme.
@@ -925,8 +933,8 @@ require('lazy').setup({
     -- tag = "v2.15", -- uncomment to pin to a specific release
     init = function()
       -- VimTeX configuration goes here, e.g.
-      -- vim.g.vimtex_view_method = 'skim'  -- uncomment for MacOs
-      vim.g.vimtex_view_method = 'zathura'
+      vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
+      -- vim.g.vimtex_view_method = 'zathura'
     end,
   },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
