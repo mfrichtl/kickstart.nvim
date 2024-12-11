@@ -626,6 +626,7 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         basedpyright = {},
+        ltex = {},
         texlab = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -935,6 +936,11 @@ require('lazy').setup({
       -- VimTeX configuration goes here, e.g.
       -- vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
       vim.g.vimtex_view_method = 'zathura_simple'
+      -- vim.g.vimtex_quickfix_open_on_warning = 0
+      -- vim.g.vimtex_quickfix_ignore_filters = {
+      --   'Underfull \\hbox',
+      --   'Overfull \\hbox',
+      -- }
     end,
   },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
