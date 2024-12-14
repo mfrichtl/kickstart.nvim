@@ -204,6 +204,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Setup spell checking
+vim.opt.spell = true
+vim.opt.spellfile = vim.fn.stdpath 'config' .. '/spell/en.utf-8.add'
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -218,7 +222,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
 --
---  To check the current status of your plugins, run
 --    :Lazy
 --
 --  You can press `?` in this menu for help. Use `:q` to close the window
@@ -626,8 +629,11 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         basedpyright = {},
-        harper_ls = {},
-        texlab = {},
+        harper_ls = {
+          settings = {
+            userDictPath = '~/Documents/config/en_US.dic',
+          },
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -652,6 +658,18 @@ require('lazy').setup({
             },
           },
         },
+        ltex = {
+          settings = {
+            ltex = {
+              disabledRules = {
+                ['en'] = { 'MORFOLOGIK_RULE_EN' },
+                ['en-US'] = { 'MORFOLOGIK_RULE_EN' },
+              },
+              language = 'en-US',
+            },
+          },
+        },
+        texlab = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -934,13 +952,13 @@ require('lazy').setup({
     -- tag = "v2.15", -- uncomment to pin to a specific release
     init = function()
       -- VimTeX configuration goes here, e.g.
-      vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
-      -- vim.g.vimtex_view_method = 'zathura_simple'
-      -- vim.g.vimtex_quickfix_open_on_warning = 0
-      -- vim.g.vimtex_quickfix_ignore_filters = {
-      --   'Underfull \\hbox',
-      --   'Overfull \\hbox',
-      -- }
+      -- vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
+      vim.g.vimtex_view_method = 'zathura_simple'
+      vim.g.vimtex_quickfix_open_on_warning = 0
+      vim.g.vimtex_quickfix_ignore_filters = {
+        'Underfull \\hbox',
+        'Overfull \\hbox',
+      }
     end,
   },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
