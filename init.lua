@@ -662,10 +662,16 @@ require('lazy').setup({
           settings = {
             ltex = {
               disabledRules = {
+                ['american'] = { 'MORFOLOGIK_RULE_EN' },
                 ['en'] = { 'MORFOLOGIK_RULE_EN' },
+                ['en-AU'] = { 'MORFOLOGIK_RULE_EN' },
+                ['en-CA'] = { 'MORFOLOGIK_RULE_EN' },
+                ['en-GB'] = { 'MORFOLOGIK_RULE_EN' },
+                ['en-NZ'] = { 'MORFOLOGIK_RULE_EN' },
                 ['en-US'] = { 'MORFOLOGIK_RULE_EN' },
+                ['en-ZA'] = { 'MORFOLOGIK_RULE_EN' },
               },
-              language = 'en-US',
+              language = 'auto',
             },
           },
         },
