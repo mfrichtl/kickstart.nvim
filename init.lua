@@ -958,13 +958,19 @@ require('lazy').setup({
     -- tag = "v2.15", -- uncomment to pin to a specific release
     init = function()
       -- VimTeX configuration goes here, e.g.
-      -- vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
-      vim.g.vimtex_view_method = 'zathura_simple'
+      vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
+      -- vim.g.vimtex_view_method = 'zathura_simple'
       vim.g.vimtex_quickfix_open_on_warning = 0
       vim.g.vimtex_quickfix_ignore_filters = {
         'Underfull \\hbox',
         'Overfull \\hbox',
       }
+    end,
+  },
+  {
+    'sindrets/diffview.nvim',
+    config = function()
+      require('diffview').setup { use_icons = false }
     end,
   },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
