@@ -755,6 +755,8 @@ require('lazy').setup({
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
+    lazy = false,
+    priority = 100,
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       {
@@ -779,6 +781,9 @@ require('lazy').setup({
           --   end,
           -- },
         },
+        config = function()
+          require('luasnip.loaders.from_lua').load { paths = { vim.fn.stdpath 'config' .. '/lua/luasnip/' } }
+        end,
       },
       'saadparwaiz1/cmp_luasnip',
 
@@ -793,12 +798,15 @@ require('lazy').setup({
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
-
       cmp.setup {
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
 

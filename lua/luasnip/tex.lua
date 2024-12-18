@@ -5,44 +5,41 @@ local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 local d = ls.dynamic_node
-local fmt = require('luasnip.extras.fmt').fmt
 local fmta = require('luasnip.extras.fmt').fmta
 local rep = require('luasnip.extras').rep
 
-return {
+ls.add_snippets('tex', {
   -- equation stuffs
   s({ trig = ';eqn', dscr = 'Insert an equation.' }, {
-    fmt(
+    unpack(fmta(
       [[
       \begin{equation}
-          <>
+          <1>
       \end{equation}
-    ]],
-      { i(1) },
-      { delimiters = '<>' }
-    ),
+      ]],
+      i(1, 'Maths go here.')
+    )),
   }),
 
   -- figures
   s({ trig = ';fig', dscr = 'Insert a figure.' }, {
-    fmt(
+    unpack(fmta(
       [[
         \begin{figure}[H]
             \begin{center}
-                \includegraphics[width=\linewidth]{<>}
+                \includegraphics[width=<1>]{<2>}
             \end{center}
         \renewcommand{\baselinestretch}{1}
         \small\normalsize
         \begin{quote}
-            \caption{<>}
-            \label{<>}
+            \caption{<3>}
+            \label{<4>}
         \end{quote}
         \end{figure}
         \renewcommand{\baselinestretch}{2}
         \small\normalsize
       ]],
-      { i(1), i(2), i(3) },
-      { delimeters = '<>' }
-    ),
+      { i(1, '\\linewidth'), i(2), i(3), i(4) }
+    )),
   }),
-}
+})
