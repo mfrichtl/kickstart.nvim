@@ -20,6 +20,22 @@ ls.add_snippets('tex', {
       i(1, 'Maths go here.')
     )),
   }),
+  -- symbols
+  s({ trig = ';a', dscr = 'Greek lower-case letter alpha' }, {
+    t '$\\alpha$',
+  }),
+  s({ trig = ';b', dscr = 'Greek lower-case letter beta' }, {
+    t '$\\beta$',
+  }),
+  s({ trig = ';g', dscr = 'Greek lower-case letter gamma' }, {
+    t '$\\gamma$',
+  }),
+  s({ trig = ';e', dscr = 'Greek lower-case letter epsilon' }, {
+    t '$\\epsilon$',
+  }),
+  s({ trig = ';Ms', dscr = 'Insert martensite start temperature.' }, {
+    t '$M_\\text{{s}}$',
+  }),
 
   -- figures
   s({ trig = ';fig', dscr = 'Insert a figure.' }, {
