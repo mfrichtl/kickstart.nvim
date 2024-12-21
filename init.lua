@@ -755,8 +755,8 @@ require('lazy').setup({
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
-    lazy = false,
-    priority = 100,
+    -- lazy = false,
+    -- priority = 100,
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       {
@@ -966,8 +966,8 @@ require('lazy').setup({
     -- tag = "v2.15", -- uncomment to pin to a specific release
     init = function()
       -- VimTeX configuration goes here, e.g.
-      vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
-      -- vim.g.vimtex_view_method = 'zathura_simple'
+      -- vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
+      vim.g.vimtex_view_method = 'zathura_simple'
       vim.g.vimtex_quickfix_open_on_warning = 0
       vim.g.vimtex_quickfix_ignore_filters = {
         'Underfull \\hbox',
@@ -981,6 +981,14 @@ require('lazy').setup({
       require('diffview').setup { use_icons = false }
     end,
   },
+  -- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      -- add any options here
+    },
+  },
+
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.

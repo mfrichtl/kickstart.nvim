@@ -13,34 +13,46 @@ ls.add_snippets('tex', {
   s({ trig = ';eqn', dscr = 'Insert an equation.' }, {
     unpack(fmta(
       [[
+
       \begin{equation}
           <1>
       \end{equation}
+
       ]],
       i(1, 'Maths go here.')
     )),
   }),
   -- symbols
   s({ trig = ';a', dscr = 'Greek lower-case letter alpha' }, {
-    t '$\\alpha$',
+    t '\\alpha',
   }),
   s({ trig = ';b', dscr = 'Greek lower-case letter beta' }, {
-    t '$\\beta$',
+    t '\\beta',
   }),
   s({ trig = ';g', dscr = 'Greek lower-case letter gamma' }, {
-    t '$\\gamma$',
+    t '\\gamma',
   }),
   s({ trig = ';e', dscr = 'Greek lower-case letter epsilon' }, {
-    t '$\\epsilon$',
+    t '\\epsilon',
   }),
   s({ trig = ';Ms', dscr = 'Insert martensite start temperature.' }, {
-    t '$M_\\text{{s}}$',
+    t 'M_\\text{s}',
+  }),
+  s({ trig = ';DGa', dscr = 'Driving Force for lath/plate martensite.' }, {
+    t '\\Delta G_\\text{m}^{\\alpha \\rightarrow \\gamma}',
+  }),
+  s({ trig = ';DGe', dscr = 'Driving Force for epsilon martensite.' }, {
+    t '\\Delta G_\\text{m}^{\\epsilon \\rightarrow \\gamma}',
+  }),
+  s({ trig = ';deg', dscr = 'Degree symbol.' }, {
+    t '^\\circ',
   }),
 
   -- figures
   s({ trig = ';fig', dscr = 'Insert a figure.' }, {
     unpack(fmta(
       [[
+
         \begin{figure}[H]
             \begin{center}
                 \includegraphics[width=<1>]{<2>}
@@ -54,6 +66,7 @@ ls.add_snippets('tex', {
         \end{figure}
         \renewcommand{\baselinestretch}{2}
         \small\normalsize
+
       ]],
       { i(1, '\\linewidth'), i(2), i(3), i(4) }
     )),
