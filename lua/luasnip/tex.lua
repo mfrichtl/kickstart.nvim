@@ -71,4 +71,28 @@ ls.add_snippets('tex', {
       { i(1, '\\linewidth'), i(2), i(3), i(4) }
     )),
   }),
+
+  -- Tables
+  s({ trig = ';tab', dscr = 'Insert a table.' }, {
+    unpack(fmta(
+      [[
+
+        \begin{table}[h]
+            \caption{<1>}
+            \label{table:<2>}
+            \begin{center}
+                \begin{tabular}{<3>}
+                    \toprule
+                    <4>
+                    \midrule
+                    <5>
+                    \bottomrule
+                \end{tabular}
+            \end{center}
+        \end{table}
+
+      ]],
+      { i(1), i(2), i(3), i(4), i(5) }
+    )),
+  }),
 })
