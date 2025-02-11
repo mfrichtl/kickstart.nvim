@@ -628,7 +628,23 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        basedpyright = {},
+        -- python stuffs
+        basedpyright = {
+          settings = {
+            analysis = {
+              ignore = { '*' },
+            },
+          },
+        },
+        ruff = {
+          init_options = {
+            settings = {
+              configurationPreferences = 'filesystemFirst',
+              lineLength = 100,
+            },
+          },
+        },
+        -- english language stuffs
         harper_ls = {
           settings = {
             userDictPath = '~/Documents/config/en_US.dic',
@@ -695,6 +711,8 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        automatic_installation = false,
+        ensure_installed = {},
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
