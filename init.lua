@@ -890,7 +890,6 @@ require('lazy').setup({
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'kanagawa'
-
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
@@ -968,8 +967,8 @@ require('lazy').setup({
     -- tag = "v2.15", -- uncomment to pin to a specific release
     init = function()
       -- VimTeX configuration goes here, e.g.
-      -- vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
-      vim.g.vimtex_view_method = 'zathura_simple'
+      vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
+      -- vim.g.vimtex_view_method = 'zathura_simple'
       vim.g.vimtex_quickfix_open_on_warning = 0
       vim.g.vimtex_quickfix_ignore_filters = {
         'Underfull \\hbox',
