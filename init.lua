@@ -628,7 +628,23 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        basedpyright = {},
+        -- python stuffs
+        basedpyright = {
+          settings = {
+            analysis = {
+              ignore = { '*' },
+            },
+          },
+        },
+        ruff = {
+          init_options = {
+            settings = {
+              configurationPreferences = 'filesystemFirst',
+              lineLength = 100,
+            },
+          },
+        },
+        -- english language stuffs
         harper_ls = {
           settings = {
             userDictPath = '~/Documents/config/en_US.dic',
@@ -695,6 +711,8 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        automatic_installation = false,
+        ensure_installed = {},
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -968,8 +986,8 @@ require('lazy').setup({
     -- tag = "v2.15", -- uncomment to pin to a specific release
     init = function()
       -- VimTeX configuration goes here, e.g.
-      -- vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
-      vim.g.vimtex_view_method = 'zathura_simple'
+      vim.g.vimtex_view_method = 'skim' -- uncomment for MacOs
+      -- vim.g.vimtex_view_method = 'zathura_simple'
       vim.g.vimtex_quickfix_open_on_warning = 0
       vim.g.vimtex_quickfix_ignore_filters = {
         'Underfull \\hbox',
