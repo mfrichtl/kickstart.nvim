@@ -325,6 +325,7 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>y', group = '[Y]azi' },
       },
     },
   },
@@ -952,7 +953,8 @@ require('lazy').setup({
       statusline.section_location = function()
         return '%2l:%-2v'
       end
-
+      require('mini.tabline').setup() -- The status line at top listing buffers.
+      require('mini.bufremove').setup() -- Which buffer to show after current buffer is removed.
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
@@ -998,12 +1000,6 @@ require('lazy').setup({
       }
     end,
   },
-  {
-    'sindrets/diffview.nvim',
-    config = function()
-      require('diffview').setup { use_icons = false }
-    end,
-  },
   -- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
   {
     'numToStr/Comment.nvim',
@@ -1030,6 +1026,27 @@ require('lazy').setup({
       'RainbowDelimQuoted',
       'RainbowMultiDelim',
     },
+  },
+  {
+    'mikavilpas/yazi.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    keys = {
+      { '<leader>yc', mode = { 'n', 'v' }, '<cmd>Yazi<cr>', desc = 'Open yazi at the current file.' },
+      { '<leader>yd', '<cmd>Yazi cwd<cr>', desc = 'Open yazi in the current working directory.' },
+      { '<leader>yr', '<cmd>Yazi toggle<cr>', desc = 'Resume the last yazi session.' },
+    },
+  },
+  {
+    'NeogitOrg/neogit',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+    config = true,
   },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
