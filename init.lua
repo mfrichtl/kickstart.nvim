@@ -879,25 +879,26 @@ require('lazy').setup({
       },
       'folke/lazydev.nvim',
     },
-    config = function()
-      -- See `:help cmp`
-      local cmp = require 'cmp'
-      local luasnip = require 'luasnip'
-      luasnip.config.setup {}
-      cmp.setup {
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
-        completion = { completeopt = 'menu,menuone,noinsert' },
+    -- Not sure if the below code is still needed, 2025-11-22
+    -- config = function()
+    --   -- See `:help cmp`
+    --   local cmp = require 'cmp'
+    --   local luasnip = require 'luasnip'
+    --   luasnip.config.setup {}
+    --   cmp.setup {
+    --     snippet = {
+    --       expand = function(args)
+    --         luasnip.lsp_expand(args.body)
+    --       end,
+    --     },
+    --     window = {
+    --       completion = cmp.config.window.bordered(),
+    --       documentation = cmp.config.window.bordered(),
+    --     },
+    --     completion = { completeopt = 'menu,menuone,noinsert' },
 
-        -- For an understanding of why these mappings were
-        -- chosen, you will need to read `:help ins-completion`
+    -- For an understanding of why these mappings were
+    -- chosen, you will need to read `:help ins-completion`
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
     opts = {
@@ -946,21 +947,7 @@ require('lazy').setup({
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
-        sources = {
-          {
-            name = 'lazydev',
-            -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-            group_index = 0,
-          },
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'path' },
-          { name = 'buffer' },
-        },
-      }
-    end,
       },
-
       snippets = { preset = 'luasnip' },
 
       -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
@@ -987,19 +974,18 @@ require('lazy').setup({
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
+      -- require('tokyonight').setup {
+      --   styles = {
+      --     comments = { italic = false }, -- Disable italics in comments
+      --   },
+      -- }
 
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'kanagawa'
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.hi 'Comment gui=none'
     end,
   },
 
