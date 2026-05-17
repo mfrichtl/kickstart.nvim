@@ -503,6 +503,7 @@ require('lazy').setup({
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
+      'saghen/blink.lib',
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -846,7 +847,7 @@ require('lazy').setup({
     -- priority = 100,
     'saghen/blink.cmp',
     event = 'VimEnter',
-    version = '1.*',
+    version = '2.*',
     dependencies = {
       -- Snippet Engine
       {
@@ -878,7 +879,11 @@ require('lazy').setup({
         opts = {},
       },
       'folke/lazydev.nvim',
+      'saghen/blink.lib',
     },
+    build = function()
+      require('blink.cmp').build():wait(60000)
+    end,
     -- Not sure if the below code is still needed, 2025-11-22
     -- config = function()
     --   -- See `:help cmp`
@@ -896,11 +901,13 @@ require('lazy').setup({
     --       documentation = cmp.config.window.bordered(),
     --     },
     --     completion = { completeopt = 'menu,menuone,noinsert' },
+    --   require('blink.cmp').build():wait(60000)
+    -- }
 
     -- For an understanding of why these mappings were
     -- chosen, you will need to read `:help ins-completion`
-    --- @module 'blink.cmp'
-    --- @type blink.cmp.Config
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
     opts = {
       keymap = {
         -- 'default' (recommended) for mappings similar to built-in completions
@@ -957,7 +964,7 @@ require('lazy').setup({
       -- the rust implementation via `'prefer_rust_with_warning'`
       --
       -- See :h blink-cmp-config-fuzzy for more information
-      fuzzy = { implementation = 'lua' },
+      fuzzy = { implementation = 'prefer_rust_with_warning' },
 
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
@@ -1150,6 +1157,24 @@ require('lazy').setup({
   -- Or use telescope!
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
+  -- {
+  --   'saghen/blink.cmp',
+  --   version = '2.*',
+  --   dependencies = {
+  --     'saghen/blink.lib',
+  --   },
+  --   build = function()
+  --     require('blink.cmp').build():wait(60000)
+  --   end,
+  --   ---@module 'blink.cmp'
+  --   ---@type blink.cmp.Config
+  --   opts = {
+  --     keymap = { preset = 'default' },
+  --     completion = { documentation = { auto_show = false } },
+  --     sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
+  --     fuzzy = { implementation = 'rust' },
+  --   },
+  -- },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
