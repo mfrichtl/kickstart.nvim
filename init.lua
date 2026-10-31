@@ -318,6 +318,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
+        { '<leader>a', group = '[A]I Tools' },
         { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
@@ -642,7 +643,7 @@ require('lazy').setup({
           init_options = {
             settings = {
               configurationPreferences = 'filesystemFirst',
-              lineLength = 100,
+              lineLength = 120,
             },
           },
         },
@@ -959,32 +960,63 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
-  { -- Highlight, edit, and navigate code
+
+  {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    lazy = false,
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        disable = { 'csv' },
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    -- There are additional nvim-treesitter modules that you can use to interact
-    -- with nvim-treesitter. You should go explore a few and see what interests you:
-    --
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+
+    config = function()
+      local treesitter = require 'nvim-treesitter'
+
+      -- Replacement for ensure_installed
+      local parsers = {
+        'bash',
+        'c',
+        'cpp',
+        'go',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'python',
+        'query',
+        'rust',
+        'tsx',
+        'javascript',
+        'typescript',
+        'vim',
+        'vimdoc',
+      }
+
+      treesitter.install(parsers)
+
+      -- Replacement for highlight.enable and indent.enable
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function(args)
+          local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+
+          if not lang then
+            return
+          end
+
+          -- Start highlighting when a parser is available.
+          local ok = pcall(vim.treesitter.start, args.buf, lang)
+
+          if not ok then
+            return
+          end
+
+          -- Enable Tree-sitter indentation where supported.
+          if vim.treesitter.query.get(lang, 'indents') then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
   },
+
   {
     'lervag/vimtex',
     lazy = false, -- we don't want to lazy load VimTeX
@@ -1052,6 +1084,90 @@ require('lazy').setup({
     'akinsho/toggleterm.nvim',
     version = '*',
     config = true,
+  },
+  {
+    'olimorris/codecompanion.nvim',
+    version = '^19.0.0',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+
+      {
+        'MeanderingProgrammer/render-markdown.nvim',
+        ft = { 'markdown', 'codecompanion' },
+      },
+    },
+    opts = {
+      adapters = {
+        acp = {
+          codex = function()
+            return require('codecompanion.adapters').extend('codex', {
+              defaults = {
+                auth_method = 'chat-gpt',
+              },
+            })
+          end,
+        },
+      },
+
+      interactions = {
+        chat = {
+          adapter = 'codex',
+        },
+        cli = {
+          agent = 'codex',
+
+          agents = {
+            codex = {
+              cmd = 'codex',
+              args = { '--model', 'gpt-5.6-terra' },
+              description = 'OpenAI Codex CLI',
+              provider = 'terminal',
+            },
+          },
+
+          opts = {
+            auto_insert = true,
+            reload = true,
+          },
+        },
+      },
+      display = {
+        cli = {
+          window = {
+            layout = 'vertical',
+            width = 0.4,
+          },
+        },
+      },
+    },
+
+    keys = {
+      {
+        '<leader>ac',
+        '<cmd>CodeCompanionChat Toggle<cr>',
+        mode = { 'n', 'v' },
+        desc = 'Toggle Codex chat',
+      },
+      {
+        '<leader>aa',
+        '<cmd>CodeCompanionActions<cr>',
+        mode = { 'n', 'v' },
+        desc = 'Codex actions',
+      },
+      {
+        '<leader>an',
+        '<cmd>CodeCompanionChat<cr>',
+        mode = { 'n', 'v' },
+        desc = 'New Codex chat',
+      },
+      {
+        '<leader>ai',
+        '<cmd>CodeCompanionCLI<cr>',
+        mode = { 'n', 'v' },
+        desc = 'New Codex CLI',
+      },
+    },
   },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
